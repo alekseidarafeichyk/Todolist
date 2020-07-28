@@ -18,7 +18,7 @@ export type TodoListType = {
     filter: FilterValueType,
 }
 
-type TaskStateType = {
+export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
@@ -34,7 +34,7 @@ function App() {
         {id: todoListID2, title: 'Songs', filter: 'active'},
     ])
 
-    let [tasks, setTask] = useState<TaskStateType>({
+    let [tasks, setTask] = useState<TasksStateType>({
         [todoListID1]: [
             {id: v1(), isDone: true, title: 'JS'},
             {id: v1(), isDone: true, title: 'React'},
@@ -52,30 +52,13 @@ function App() {
         setTask({...tasks})
     }
 
-    function changeFilter(value: FilterValueType, id: string) {
-        let todoList = todoLists.find(tl => tl.id === id)
-        if (todoList) {
-            todoList.filter = value
-            setTodoLists([...todoLists])
-        }
-    }
-
-    function changeTodolistTitle(id: string, title: string) {
-        // найдём нужный todolist
-        const todolist = todoLists.find(tl => tl.id === id);
-        if (todolist) {
-            // если нашёлся - изменим ему заголовок
-            todolist.title = title;
-            setTodoLists([...todoLists]);
-        }
-    }
-
     function addTask(title: string, todoListId: string) {
         let task = {id: v1(), title: title, isDone: false}
         let todoListTasks = tasks[todoListId]
         tasks[todoListId] = [task, ...todoListTasks]
         setTask({...tasks})
     }
+
 
     function changeStatus(id: string, isDone: boolean, todoListId: string) {
         let todoListTasks = tasks[todoListId]
@@ -96,6 +79,24 @@ function App() {
     }
 
 
+    function changeFilter(value: FilterValueType, id: string) {
+        let todoList = todoLists.find(tl => tl.id === id)
+        if (todoList) {
+            todoList.filter = value
+            setTodoLists([...todoLists])
+        }
+    }
+
+    function changeTodolistTitle(id: string, title: string) {
+        // найдём нужный todolist
+        const todolist = todoLists.find(tl => tl.id === id);
+        if (todolist) {
+            // если нашёлся - изменим ему заголовок
+            todolist.title = title;
+            setTodoLists([...todoLists]);
+        }
+    }
+
     function removeTodo(id: string) {
         setTodoLists(todoLists.filter(tl => tl.id !== id))
         delete tasks[id]
@@ -115,7 +116,6 @@ function App() {
             [newTodoListId]: []
         })
     }
-
 
     return (
 
