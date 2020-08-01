@@ -59,6 +59,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
                 } : tl)
             }
         case 'CHANGE_TASK_TITLE' :
+            debugger
             return {
                 ...state,
                 [action.todoListId]: [...state[action.todoListId]].map(tl => tl.id === action.taskId ? {
@@ -93,7 +94,7 @@ export const changeTaskStatusAC = (id: string, isDone: boolean, todoListId: stri
     return {type: 'CHANGE_TASK_STATUS', id, isDone, todoListId};
 }
 
-export const changeTaskTitleAC = (taskId: string, todoListId: string, newTitle: string): ChangeTaskTitleActionType => {
+export const changeTaskTitleAC = (taskId: string, newTitle: string, todoListId: string): ChangeTaskTitleActionType => {
     return {type: 'CHANGE_TASK_TITLE', taskId, newTitle, todoListId};
 }
 

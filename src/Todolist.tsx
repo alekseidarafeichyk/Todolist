@@ -47,10 +47,6 @@ export function TodoList(props: PropsType) {
                 <IconButton onClick={deleteTodoList}>
                     <Delete/>
                 </IconButton>
-                {/*<button onClick={() => {*/}
-                {/*    props.removeTask(t.id, props.id)*/}
-                {/*}}>x*/}
-                {/*</button>*/}
             </div>
         )
     })

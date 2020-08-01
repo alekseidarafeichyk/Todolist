@@ -23,7 +23,6 @@ function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const onAddItemClick = () => {
-        debugger
         if (title.trim() !== '') {
             props.addItem(title)
         } else {
