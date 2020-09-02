@@ -1,5 +1,4 @@
 import {TasksStateType} from '../App';
-import {act} from 'react-dom/test-utils';
 import {v1} from 'uuid';
 import {AddTodolistActionType, RemoveTodolistActionType} from './todolists-reducer';
 
@@ -41,7 +40,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             return {
                 ...state,
                 [action.todoListId]: state[action.todoListId].filter(tl => {
-                    return tl.id != action.id
+                    return tl.id !== action.id
                 })
             }
         }
@@ -55,16 +54,15 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'CHANGE_TASK_STATUS' :
             return {
                 ...state,
-                [action.todoListId]: [...state[action.todoListId]].map(tl => tl.id === action.id ? {
+                [action.todoListId]: state[action.todoListId].map(tl => tl.id === action.id ? {
                     ...tl,
                     isDone: action.isDone
                 } : tl)
             }
         case 'CHANGE_TASK_TITLE' :
-            debugger
             return {
                 ...state,
-                [action.todoListId]: [...state[action.todoListId]].map(tl => tl.id === action.taskId ? {
+                [action.todoListId]: state[action.todoListId].map(tl => tl.id === action.taskId ? {
                     ...tl,
                     title: action.newTitle
                 } : tl)
