@@ -33,7 +33,7 @@ export type TasksStateType = {
 export type FilterValueType = 'all' | 'active' | 'completed'
 
 function AppWithRedux() {
-    const todoLists = useSelector<AppRootStoreType, Array<TodoListType>>(state => state.todoLists);
+    const todoLists = useSelector<AppRootStoreType, Array<TodoListType>>(state => state.todolists);
     const tasks = useSelector<AppRootStoreType, TasksStateType>(state => state.tasks);
     const dispatch = useDispatch();
 
