@@ -42,7 +42,7 @@ type GetTaskResponse = {
     error: string | null
 }
 
-export type UpdateTaskType ={
+export type UpdateTaskType = {
     title: string
     description: string
     completed: boolean
@@ -68,11 +68,11 @@ export const todolistsApi = {
     getTasks(todolistId: string) {
         return instance.get<GetTaskResponse>(`/todo-lists/${todolistId}/tasks`);
     },
-    addTaskForTodolist(todolistId: string, title: string) {
-        return instance.post(`/todo-lists/${todolistId}/tasks`, {title});
+    createTask(todolistId: string, taskTitle: string) {
+        return instance.post<ResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks`, {title: taskTitle});
     },
-    updateTask(todolistId: string, taskId: string, body: UpdateTaskType) {
-        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, body);
+    updateTask(todolistId: string, taskId: string, model: UpdateTaskType) {
+        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, model);
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`);

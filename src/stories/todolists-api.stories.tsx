@@ -77,7 +77,7 @@ export const UpdateTodolistTitle = () => {
     const [title, setTitle] = useState<any>(null)
 
     const newTitle = () => {
-        todolistsApi.updateTodolistTitle(todolistId,title)
+        todolistsApi.updateTodolistTitle(todolistId, title)
             .then(response => {
                 setState(response.data)
             })
@@ -133,8 +133,10 @@ export const AddTask = () => {
 
 
     const addTaskHandler = () => {
-        todolistsApi.addTaskForTodolist(todolistId, title)
-            .then(response => setState(response.data))
+        todolistsApi.createTask(todolistId, title,)
+            .then(response =>
+                setState(response.data)
+            )
     }
 
     return <>
@@ -169,20 +171,37 @@ export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
     const [todolistId, setTodolistId] = useState<any>(null)
     const [taskId, setTaskId] = useState<any>(null)
+    const [newTitle, setNewTitle] = useState<any>(null)
+
 
     const updateTaskHandler = () => {
-        todolistsApi.updateTask(todolistId, taskId, bodyForUpdateTask)
+        todolistsApi.updateTask(todolistId, taskId,
+            {
+                ...bodyForUpdateTask,
+                title: newTitle
+            })
             .then(response => setState(response.data))
     }
 
     return <div>
-        <input onChange={(e) => {
-            setTodolistId(e.currentTarget.value)
-        }}/>
-        <input onChange={(e) => {
-            setTaskId(e.currentTarget.value)
-        }}/>
-        <button onClick={updateTaskHandler}>delete</button>
+        <input value={todolistId}
+               placeholder={'todolistId'}
+               onChange={(e) => {
+                   setTodolistId(e.currentTarget.value)
+               }}/>
+        <input placeholder={'taskId'}
+               value={taskId}
+
+               onChange={(e) => {
+                   setTaskId(e.currentTarget.value)
+               }}/>
+        <input
+            value={newTitle}
+            placeholder={'newTitle'}
+            onChange={(e) => {
+                setNewTitle(e.currentTarget.value)
+            }}/>
+        <button onClick={updateTaskHandler}>update task</button>
         <div> {JSON.stringify(state)}</div>
     </div>
 
@@ -201,12 +220,16 @@ export const DeleteTask = () => {
     }
 
     return <div>
-        <input onChange={(e) => {
-            setTodolistId(e.currentTarget.value)
-        }}/>
-        <input onChange={(e) => {
-            setTaskId(e.currentTarget.value)
-        }}/>
+        <input value={todolistId}
+               placeholder={'todolistId'}
+               onChange={(e) => {
+                   setTodolistId(e.currentTarget.value)
+               }}/>
+        <input value={taskId}
+               placeholder={'taskId'}
+               onChange={(e) => {
+                   setTaskId(e.currentTarget.value)
+               }}/>
         <button onClick={deleteTaskHandler}>delete</button>
         <div> {JSON.stringify(state)}</div>
     </div>
