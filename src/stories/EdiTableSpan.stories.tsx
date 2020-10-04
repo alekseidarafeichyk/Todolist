@@ -1,7 +1,7 @@
 import React from 'react';
 import {action} from '@storybook/addon-actions';
-import {Task} from './Task';
-import EditTableSpan from './EditTableSpan';
+import {Task} from '../Task';
+import EditTableSpan from '../EditTableSpan';
 
 export default {
     title: 'EditableSpan Component',

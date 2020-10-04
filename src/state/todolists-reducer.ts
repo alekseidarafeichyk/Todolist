@@ -1,10 +1,5 @@
-import {TodoListType, FilterValueType} from '../App';
 import {v1} from 'uuid';
-
-type ActionsType = RemoveTodolistActionType
-    | AddTodolistActionType
-    | ChangeTodolistTitleActionType
-    | ChangeTodolistFilterActionType
+import {TodolistType} from '../api/todolists-api';
 
 export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST'
@@ -26,19 +21,33 @@ export type ChangeTodolistFilterActionType = {
     id: string
 }
 
-let initialState : Array<TodoListType> = []
 
-export const todoListReducer = (state: Array<TodoListType> = initialState, action: ActionsType): Array<TodoListType> => {
+type ActionsType = RemoveTodolistActionType
+    | AddTodolistActionType
+    | ChangeTodolistTitleActionType
+    | ChangeTodolistFilterActionType
+
+export type FilterValueType = 'all' | 'active' | 'completed'
+
+export type TodolistDomainType = TodolistType & {
+    filter: FilterValueType
+}
+
+let initialState: Array<TodolistDomainType> = []
+
+export const todoListReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST' :
             return state.filter(tl => tl.id !== action.id)
-        case 'ADD-TODOLIST':
-            let newTodoList: TodoListType = {
-                id: action.todolistId,
-                title: action.title,
-                filter: 'all'
-            }
-            return [...state, newTodoList]
+        case 'ADD-TODOLIST': {
+            return [{
+                id:action.todolistId,
+                title:action.title,
+                filter: 'all',
+                addedDate: '',
+                order: 0
+            }, ...state]
+        }
         case 'CHANGE-TODOLIST-TITLE' :
             let todoList = state.find(tl => tl.id === action.id)
             if (todoList) {
@@ -54,7 +63,7 @@ export const todoListReducer = (state: Array<TodoListType> = initialState, actio
             }
             return [...state]
         default:
-           return state
+            return state
     }
 }
 
