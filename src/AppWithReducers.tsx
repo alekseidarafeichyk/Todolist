@@ -5,16 +5,16 @@ import {v1} from 'uuid';
 import AddItemForm from './AddItemForm';
 import {Menu} from '@material-ui/icons';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
+import {addTaskAC, removeTaskAC, tasksReducer, UpdateTaskAC} from './state/tasks-reducer';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodoListTitleAC,
+    FilterValueType,
     removeTodoListAC,
-    todoListReducer,
-    FilterValueType
+    todoListReducer
 } from './state/todolists-reducer';
-import {TaskPriorities, TaskStatuses, TaskType} from './api/todolists-api';
+import {TaskPriorities, TaskStatuses, TaskType} from './api/todolists-a-p-i';
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -104,16 +104,26 @@ function AppWithReducers() {
     }
 
     function addTask(title: string, todoListId: string) {
-        dispatchToTasks(addTaskAC(title, todoListId))
+        dispatchToTasks(addTaskAC({
+                id: '1',
+                title: title,
+                status: TaskStatuses.New,
+                todoListId: todoListId,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low}))
     }
 
 
     function changeStatus(id: string, status: TaskStatuses, todoListId: string) {
-        dispatchToTasks(changeTaskStatusAC(id, status, todoListId))
+        dispatchToTasks(UpdateTaskAC(id, {status}, todoListId))
     }
 
     function changeTaskTitle(id: string, title: string, todoListId: string) {
-        dispatchToTasks(changeTaskTitleAC(id, title, todoListId))
+        dispatchToTasks(UpdateTaskAC(id, {title}, todoListId))
     }
 
 
@@ -131,7 +141,12 @@ function AppWithReducers() {
     }
 
     function addTodoList(title: string) {
-        let action = addTodolistAC(title)
+        let action = addTodolistAC({
+            id: v1(),
+            addedDate: '',
+            order: 0,
+            title: title
+        })
         dispatchToTodolist(action)
         dispatchToTasks(action)
     }

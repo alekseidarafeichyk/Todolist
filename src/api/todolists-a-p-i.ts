@@ -56,17 +56,16 @@ type GetTaskResponse = {
     error: string | null
 }
 
-export type UpdateTaskType = {
+export type UpdateTaskModuleType = {
     title: string
     description: string
-    completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
 }
 
-export const todolistsApi = {
+export const todolistsAPI = {
     getTodolists() {
         return instance.get<Array<TodolistType>>('todo-lists');
     },
@@ -83,9 +82,9 @@ export const todolistsApi = {
         return instance.get<GetTaskResponse>(`/todo-lists/${todolistId}/tasks`);
     },
     createTask(todolistId: string, taskTitle: string) {
-        return instance.post<ResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks`, {title: taskTitle});
+        return instance.post<ResponseType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {title: taskTitle});
     },
-    updateTask(todolistId: string, taskId: string, model: UpdateTaskType) {
+    updateTask(todolistId: string, taskId: string, model: UpdateTaskModuleType) {
         return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, model);
     },
     deleteTask(todolistId: string, taskId: string) {

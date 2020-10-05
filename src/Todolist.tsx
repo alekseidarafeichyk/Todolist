@@ -4,7 +4,7 @@ import EditTableSpan from './EditTableSpan';
 import {Button} from '@material-ui/core';
 import {Delete} from '@material-ui/icons';
 import {Task} from './Task';
-import {TaskStatuses, TaskType} from './api/todolists-api';
+import {TaskStatuses, TaskType} from './api/todolists-a-p-i';
 import {FilterValueType} from './state/todolists-reducer';
 import {useDispatch} from 'react-redux';
 import {fetchTasksTC} from './state/tasks-reducer';
@@ -65,11 +65,6 @@ export const TodoList = React.memo ((props: PropsType) => {
         props.changeFilter('completed', props.id)
     },[props.changeFilter,props.id])
 
-
-    //
-    // const allBtnClass = props.filter === 'all' ? 'active-filter' : '';
-    // const activeBtnClass = props.filter === 'active' ? 'active-filter' : '';
-    // const completedBtnClass = props.filter === 'completed' ? 'active-filter' : '';
 
 
     const createTaskTitle = useCallback((title: string) => {
