@@ -3,7 +3,7 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodoListTitleAC, FilterValueType,
-    removeTodoListAC, TodolistDomainType,
+    removeTodoListAC, setTodolistsAC, TodolistDomainType,
     todoListReducer
 } from './todolists-reducer';
 
@@ -58,4 +58,14 @@ test('correct filter of todolist should be changed', () => {
 
     expect(endState[0].filter).toBe('all');
     expect(endState[1].filter).toBe(newFilter);
+});
+
+
+test('todolists should be set to the state', () => {
+
+    const action = setTodolistsAC(startState);
+
+    const endState = todoListReducer([], action);
+
+    expect(endState.length).toBe(2);
 });
