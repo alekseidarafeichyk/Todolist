@@ -6,7 +6,7 @@ type EditTableSpanPropsType = {
     saveTitle: (newTitle: string) => void
 }
 
-export const  EditTableSpan = React.memo ((props: EditTableSpanPropsType) => {
+export const  EditableSpan = React.memo ((props: EditTableSpanPropsType) => {
     console.log('Editablespan called')
     let [editMode, setEditMode] = useState(false)
     let [title, setTitle] = useState(props.title)
@@ -36,4 +36,4 @@ export const  EditTableSpan = React.memo ((props: EditTableSpanPropsType) => {
         <span onDoubleClick={onEditMode}>{props.title}</span>
 })
 
-export default EditTableSpan
+export default EditableSpan

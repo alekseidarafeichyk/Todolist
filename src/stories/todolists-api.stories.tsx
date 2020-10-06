@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {todolistsAPI, UpdateTaskModuleType} from '../api/todolists-a-p-i';
+import {todolistsApi, UpdateTaskModuleType} from '../api/todolists-api';
 
 
 export default {
@@ -9,7 +9,7 @@ export default {
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistsAPI.getTodolists()
+        todolistsApi.getTodolists()
             .then(response => {
                 setState(response.data);
             })
@@ -25,7 +25,7 @@ export const CreateTodolist = () => {
     const [value, setValue] = useState<any>(null)
 
     const createTodolist = () => {
-        todolistsAPI.createTodolist(value)
+        todolistsApi.createTodolist(value)
             .then(response => {
                 setState(response.data)
             })
@@ -52,7 +52,7 @@ export const DeleteTodolist = () => {
     const [todolistId, setTodolistId] = useState<any>(null)
 
     const deleteTodolist = () => {
-        todolistsAPI.deleteTodolist(todolistId)
+        todolistsApi.deleteTodolist(todolistId)
             .then(response => setState(response.data))
     }
 
@@ -77,7 +77,7 @@ export const UpdateTodolistTitle = () => {
     const [title, setTitle] = useState<any>(null)
 
     const newTitle = () => {
-        todolistsAPI.updateTodolistTitle(todolistId, title)
+        todolistsApi.updateTodolistTitle(todolistId, title)
             .then(response => {
                 setState(response.data)
             })
@@ -110,7 +110,7 @@ export const GetTask = () => {
     const [todolistId, setTodolistId] = useState<any>(null)
 
     const getTaskHandler = () => {
-        todolistsAPI.getTasks(todolistId)
+        todolistsApi.getTasks(todolistId)
             .then(response => setState(response.data))
     }
 
@@ -133,7 +133,7 @@ export const AddTask = () => {
 
 
     const addTaskHandler = () => {
-        todolistsAPI.createTask(todolistId, title,)
+        todolistsApi.createTask(todolistId, title,)
             .then(response =>
                 setState(response.data)
             )
@@ -174,7 +174,7 @@ export const UpdateTask = () => {
 
 
     const updateTaskHandler = () => {
-        todolistsAPI.updateTask(todolistId, taskId,
+        todolistsApi.updateTask(todolistId, taskId,
             {
                 ...bodyForUpdateTask,
                 title: newTitle
@@ -214,7 +214,7 @@ export const DeleteTask = () => {
 
 
     const deleteTaskHandler = () => {
-        todolistsAPI.deleteTask(todolistId, taskId)
+        todolistsApi.deleteTask(todolistId, taskId)
             .then(response => setState(response.data))
     }
 

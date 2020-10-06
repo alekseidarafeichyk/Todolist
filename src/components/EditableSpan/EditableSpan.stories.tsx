@@ -1,15 +1,15 @@
 import React from 'react';
 import {action} from '@storybook/addon-actions';
-import {Task} from '../Task';
-import EditTableSpan from '../EditTableSpan';
+import {Task} from '../../features/TodolistsList/Todolist/Task/Task';
+import EditableSpan from './EditableSpan';
 
 export default {
     title: 'EditableSpan Component',
-    component: EditTableSpan,
+    component: EditableSpan,
 }
 
 const titleChangedCallback = action('Title changed');
 
 export const EditableSpanBaseExample = () =>{
-    return <EditTableSpan title={'startValue'} saveTitle={titleChangedCallback}/>
+    return <EditableSpan title={'startValue'} saveTitle={titleChangedCallback}/>
 }

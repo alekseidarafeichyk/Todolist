@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import {Checkbox, IconButton} from '@material-ui/core';
-import EditTableSpan from './EditTableSpan';
+import EditableSpan from '../../../../components/EditableSpan/EditableSpan';
 import {Delete} from '@material-ui/icons';
-import {TaskStatuses, TaskType} from './api/todolists-a-p-i';
+import {TaskStatuses, TaskType} from '../../../../api/todolists-api';
 
 
 type TaskPropsType = {
@@ -33,7 +33,7 @@ export const Task = React.memo((props: TaskPropsType) => {
             onChange={onStatusChangeHandler}
             color={'primary'}
         />
-        <EditTableSpan title={props.task.title} saveTitle={onTitleChangeCallBack}/>
+        <EditableSpan title={props.task.title} saveTitle={onTitleChangeCallBack}/>
         <IconButton onClick={deleteTodoList}>
             <Delete/>
         </IconButton>
