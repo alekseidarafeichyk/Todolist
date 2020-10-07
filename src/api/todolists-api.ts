@@ -30,7 +30,7 @@ export const todolistsApi = {
         return instance.post<ResponseType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {title: taskTitle});
     },
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModuleType) {
-        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, model);
+        return instance.put<ResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model);
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`);
@@ -44,7 +44,7 @@ export type TodolistType = {
     addedDate: string
     order: number
 }
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     data: D

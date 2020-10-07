@@ -1,6 +1,5 @@
 import React from 'react';
 import {action} from '@storybook/addon-actions';
-import {Task} from '../../features/TodolistsList/Todolist/Task/Task';
 import EditableSpan from './EditableSpan';
 
 export default {
