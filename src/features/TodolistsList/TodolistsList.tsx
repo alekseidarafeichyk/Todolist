@@ -54,7 +54,7 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false,..
 
 
     const changeFilter = useCallback((value: FilterValueType, id: string) => {
-        dispatch(changeTodolistFilterAC(value, id))
+        dispatch(changeTodolistFilterAC({filter: value, id: id}))
     }, [dispatch])
 
     const changeTodolistTitle = useCallback((id: string, title: string) => {
@@ -72,7 +72,6 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false,..
     if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
     }
-
 
     return <>
         <Grid container style={{padding: '20px'}}>
