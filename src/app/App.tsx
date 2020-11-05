@@ -16,7 +16,7 @@ import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStoreType} from './store';
 import {initializeAppTC, RequestStatusType} from './app-reducer';
-import { Route,Switch,Redirect } from 'react-router-dom';
+import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
 import {logoutTC} from '../features/Login/auth-reducer';
 
@@ -65,14 +65,11 @@ function App({demo = false,...props}:PropsType) {
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
-                <Switch>
-                    <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
-                    <Route path={'/login'} render={() => <Login/>}/>
-                    <Route path={'*'} render={() => <h1>404</h1>}/>
-
-                    {/*<Route path={'/404'} render={() => <h1>404</h1>}/>*/}
-                    {/*<Redirect from={'*'} to={'/404'}/>*/}
-                </Switch>
+                    <Switch>
+                        <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                        <Route path={'/login'} render={() => <Login/>}/>
+                        <Route path={'*'} render={() => <h1>404</h1>}/>
+                    </Switch>
             </Container>
         </div>
     );
