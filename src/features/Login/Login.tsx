@@ -1,14 +1,14 @@
 import React from 'react'
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@material-ui/core'
 import {useFormik} from 'formik'
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {loginTC} from './auth-reducer';
-import {AppRootStoreType} from '../../app/store';
+import {AppRootStoreType, useAppDispatch} from '../../app/store';
 import {Redirect} from 'react-router-dom'
 
 export const Login = () => {
 
-    const dispatch= useDispatch()
+    const dispatch  = useAppDispatch()
     const isLoggedIn = useSelector<AppRootStoreType,boolean>(state => state.auth.isLoggedIn)
 
     type FormikErrorType = {
@@ -25,19 +25,27 @@ export const Login = () => {
         }, validate: (values) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Email is required';
+            }
+            else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
             if (!values.password) {
                 errors.password = 'Required';
-            } else if (values.password.length < 6) {
-                errors.password = 'Must be 5 characters or more';
+            } else if (values.password.length < 4) {
+                errors.password = 'Must be 3 characters or more';
             }
             return errors;
         },
-        onSubmit: values => {
-            dispatch(loginTC(values))
+        onSubmit: async (values,formikHelpers) => {
+           const action = await dispatch(loginTC(values))
+
+            if (loginTC.rejected.match(action)) {
+                if (action.payload?.fieldsErrors?.length) {
+                    const  error = action.payload?.fieldsErrors[0]
+                    formikHelpers.setFieldError(error.field,error.error)
+                }
+            }
         },
     })
 
